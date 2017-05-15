@@ -22,4 +22,10 @@ describe Oystercard do
     subject.deduct(5)
     expect(subject.balance).to eq 45
   end
+
+  it "card is aware that it's been touched in" do
+    subject.top_up(50)
+    subject.touch_in
+    expect(subject.touched_in).to eq true
+  end
 end
