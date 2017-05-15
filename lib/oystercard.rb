@@ -13,4 +13,8 @@ attr_accessor :balance
     @balance += amount
   end
 
+  def deduct(fare)
+    @balance -= fare
+  end
+
 end
