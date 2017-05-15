@@ -28,4 +28,10 @@ describe Oystercard do
     subject.touch_in
     expect(subject.touched_in).to eq true
   end
+
+  it "is aware that it's been touched out" do
+    subject.top_up(50)
+    subject.touch_out
+    expect(subject.touched_out).to eq true
+  end
 end
