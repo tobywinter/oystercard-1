@@ -35,10 +35,8 @@ describe Oystercard do
   end
 
   it 'raises an error when touching in a card with a balance of 0' do
-    if subject.balance == described_class::MINIMUM_BALANCE
   expect {subject.touch_in }.to raise_error ("Insufficient funds")
   end
-end
 end
 
   describe '#touch_out' do
