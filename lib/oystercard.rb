@@ -24,8 +24,8 @@ attr_reader :touched_in, :touched_out
   end
 
   def touch_out
+    deduct(MINIMUM_FARE)
     @touched_out = true
-    @balance -= MINIMUM_FARE
   end
 
   def in_journey?
