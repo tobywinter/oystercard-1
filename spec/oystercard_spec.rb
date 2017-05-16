@@ -21,22 +21,22 @@ describe Oystercard do
 
   describe '#touch_in' do
   it "card is aware that it's been touched in" do
+    entry_station = "shoreditch"
     subject.top_up(described_class::MINIMUM_FARE)
-    subject.touch_in
+    subject.touch_in(entry_station)
     expect(subject.in_journey).to eq true
   end
 
   it 'raises an error when touching in a card with a balance of 0' do
-    expect {subject.touch_in }.to raise_error ("Insufficient funds")
+    entry_station = "shoreditch"
+    expect { subject.touch_in(entry_station) }.to raise_error ("Insufficient funds")
   end
 
-  it 'remembers entry station after touch in' do
+  it 'remembers entry entry_station after touch in' do
     subject.top_up(described_class::MINIMUM_FARE)
-    subject.touch_in(station)
-    expect(subject.station).to eq :station
+    subject.touch_in("shoreditch")
+    expect(subject.entry_station).to eq "shoreditch"
   end
-
-
 end
 
   describe '#touch_out' do
@@ -52,14 +52,16 @@ end
 
   describe '#in_journey?' do
     it 'returns true if a card is in use' do
+      entry_station = "shoreditch"
       subject.top_up(described_class::MINIMUM_FARE)
-      subject.touch_in
+      subject.touch_in(entry_station)
       expect(subject).to be_in_journey
     end
 
     it 'returns false if a card has been touched out' do
+      entry_station = "shoreditch"
       subject.top_up(described_class::MINIMUM_FARE)
-      subject.touch_in
+      subject.touch_in(entry_station)
       subject.touch_out
       expect(subject).not_to be_in_journey
     end
