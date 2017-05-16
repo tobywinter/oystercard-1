@@ -30,7 +30,8 @@ attr_reader :touched_in, :touched_out
 
   def in_journey?
     return false if @touched_out == true
-    true if @touched_in == true
+    return true if @touched_in == true
+    false
   end
 
 end

@@ -39,18 +39,18 @@ describe Oystercard do
     it 'returns true if a card is in use' do
       subject.top_up(50)
       subject.touch_in
-      expect(subject.in_journey?).to eq true
+      expect(subject).to be_in_journey
     end
 
     it 'returns false if a card has been touched' do
       subject.top_up(50)
       subject.touch_in
       subject.touch_out
-      expect(subject.in_journey?).to eq false
+      expect(subject).not_to be_in_journey
     end
 
-    it 'returns false when checking an unused card'
-      expect(subject.in_journey?).to eq false
+    it 'returns false when checking an unused card' do
+      expect(subject).not_to be_in_journey
     end
 
   end
