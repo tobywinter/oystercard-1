@@ -21,7 +21,7 @@ attr_reader :touched_in, :touched_out
   end
 
   def touch_in
-  @touched_in =true
+  @touched_in = true
   end
 
   def touch_out
