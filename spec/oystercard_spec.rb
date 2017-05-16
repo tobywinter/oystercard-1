@@ -2,6 +2,7 @@ require 'oystercard'
 
 describe Oystercard do
 let(:entry_station){ double :entry_station }
+let(:exit_station){ double :exit_station }
   it "should return a balance of zero when first initialized" do
     expect(subject.balance).to eq 0
   end
@@ -38,16 +39,21 @@ end
 
   describe '#touch_out' do
    it "is aware that it's been touched out" do
-    subject.touch_out
+    subject.touch_out(exit_station)
   end
 
   it 'should reduce the balance by the minimum fare when touching out' do
-    expect { subject.touch_out }.to change{ subject.balance }.by(-described_class::MINIMUM_FARE)
+    expect { subject.touch_out(exit_station) }.to change{ subject.balance }.by(-described_class::MINIMUM_FARE)
   end
 
   it 'should reset entry_station to nil' do
-    subject.touch_out
+    subject.touch_out(exit_station)
     expect(subject.entry_station).to eq nil
+  end
+
+  it 'remembers exit_station after touch out' do
+    subject.touch_out(exit_station)
+    expect(subject.exit_station).to eq(exit_station)
   end
 
 end
@@ -62,7 +68,7 @@ end
     it 'returns false if a card has been touched out' do
       subject.top_up(described_class::MINIMUM_FARE)
       subject.touch_in(entry_station)
-      subject.touch_out
+      subject.touch_out(exit_station)
       expect(subject).not_to be_in_journey
     end
 

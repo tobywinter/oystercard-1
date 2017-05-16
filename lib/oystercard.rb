@@ -4,12 +4,12 @@ MAXIMUM_BALANCE = 90
 MINIMUM_BALANCE = 1
 MINIMUM_FARE = 1
 
-attr_accessor :balance
-attr_reader :entry_station
+attr_reader :entry_station, :exit_station, :balance
 
   def initialize
      @balance = 0
      @entry_station = nil
+     @exit_station = nil
   end
 
   def top_up(amount)
@@ -22,8 +22,9 @@ attr_reader :entry_station
     @entry_station = entry_station
   end
 
-  def touch_out
+  def touch_out(exit_station)
     @entry_station = nil
+    @exit_station = exit_station
     deduct(MINIMUM_FARE)
   end
 
