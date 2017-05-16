@@ -1,7 +1,7 @@
 require 'oystercard'
 
 describe Oystercard do
-
+let(:entry_station){ double :entry_station }
   it "should return a balance of zero when first initialized" do
     expect(subject.balance).to eq 0
   end
@@ -21,18 +21,15 @@ describe Oystercard do
 
   describe '#touch_in' do
     it "card is aware that it's been touched in" do
-    entry_station = double :entry_station
     subject.top_up(described_class::MINIMUM_FARE)
     subject.touch_in(entry_station)
   end
 
   it 'raises an error when touching in a card with a balance of 0' do
-    entry_station = double :entry_station
     expect { subject.touch_in(entry_station) }.to raise_error ("Insufficient funds")
   end
 
   it 'remembers entry entry_station after touch in' do
-    entry_station = double :entry_station
     subject.top_up(described_class::MINIMUM_FARE)
     subject.touch_in(entry_station)
     expect(subject.entry_station).to eq(entry_station)
@@ -57,14 +54,12 @@ end
 
   describe '#in_journey?' do
     it 'returns true if a card is in use' do
-      entry_station = double :entry_station
       subject.top_up(described_class::MINIMUM_FARE)
       subject.touch_in(entry_station)
       expect(subject).to be_in_journey
     end
 
     it 'returns false if a card has been touched out' do
-      entry_station = double :entry_station
       subject.top_up(described_class::MINIMUM_FARE)
       subject.touch_in(entry_station)
       subject.touch_out
