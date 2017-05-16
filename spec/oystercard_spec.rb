@@ -23,7 +23,7 @@ describe Oystercard do
   it "card is aware that it's been touched in" do
     subject.top_up(described_class::MINIMUM_FARE)
     subject.touch_in
-    expect(subject.touched_in).to eq true
+    expect(subject.in_journey).to eq true
   end
 
   it 'raises an error when touching in a card with a balance of 0' do
@@ -32,14 +32,12 @@ describe Oystercard do
 end
 
   describe '#touch_out' do
-  it "is aware that it's been touched out" do
-    #subject.top_up(50)
+   it "is aware that it's been touched out" do
     subject.touch_out
-    expect(subject.touched_out).to eq true
+    expect(subject.in_journey).to eq false
   end
 
   it 'should reduce the balance by the minimum fare when touching out' do
-    #subject.top_up(50)
     expect { subject.touch_out }.to change{ subject.balance }.by(-described_class::MINIMUM_FARE)
   end
 end

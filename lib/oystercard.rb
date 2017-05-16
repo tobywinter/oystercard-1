@@ -5,12 +5,11 @@ MINIMUM_BALANCE = 1
 MINIMUM_FARE = 1
 
 attr_accessor :balance
-attr_reader :touched_in, :touched_out
+attr_reader :in_journey
 
   def initialize
      @balance = 0
-     @touched_in = false
-     @touched_out = false
+     @in_journey = false
   end
 
   def top_up(amount)
@@ -20,17 +19,17 @@ attr_reader :touched_in, :touched_out
 
   def touch_in
     raise "Insufficient funds" if @balance < MINIMUM_BALANCE
-  @touched_in = true
+    @in_journey = true
   end
 
   def touch_out
     deduct(MINIMUM_FARE)
-    @touched_out = true
+    @in_journey = false
   end
 
   def in_journey?
-    return false if @touched_out == true
-    return true if @touched_in == true
+    return false if @in_journey == false
+    return true if @in_journey == true
     false
   end
 
