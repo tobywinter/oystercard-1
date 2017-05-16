@@ -4,7 +4,6 @@ MAXIMUM_BALANCE = 90
 MINIMUM_BALANCE = 1
 MINIMUM_FARE = 1
 
-
 attr_accessor :balance
 attr_reader :touched_in, :touched_out
 
@@ -36,7 +35,7 @@ attr_reader :touched_in, :touched_out
   end
 
   private
-  
+
     def deduct(fare)
       @balance -= fare
     end

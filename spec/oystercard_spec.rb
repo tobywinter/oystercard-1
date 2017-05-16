@@ -7,21 +7,21 @@ describe Oystercard do
   end
 
   describe '#top_up' do
-    it "should add 10 to the balance when we top up 10" do
-      subject.top_up(10)
-      expect(subject.balance).to eq 10
+    it "should add x to the balance when we top up x" do
+      subject.top_up(described_class::MINIMUM_FARE)
+      expect(subject.balance).to eq(described_class::MINIMUM_FARE)
     end
 
     it "should raise error if balance exceeds 90" do
       if subject.balance > described_class::MAXIMUM_BALANCE
-      expect { subject.top_up(1) }.to raise_error ("Balance has exceeded limit of #{described_class::LIMIT}")
+      expect { subject.top_up(described_class::MINIMUM_FARE) }.to raise_error ("Balance has exceeded limit of #{described_class::LIMIT}")
       end
     end
   end
 
   describe '#touch_in' do
   it "card is aware that it's been touched in" do
-    subject.top_up(50)
+    subject.top_up(described_class::MINIMUM_FARE)
     subject.touch_in
     expect(subject.touched_in).to eq true
   end
@@ -33,26 +33,26 @@ end
 
   describe '#touch_out' do
   it "is aware that it's been touched out" do
-    subject.top_up(50)
+    #subject.top_up(50)
     subject.touch_out
     expect(subject.touched_out).to eq true
   end
 
   it 'should reduce the balance by the minimum fare when touching out' do
-    subject.top_up(50)
-    expect { subject.touch_out }.to change{ subject.balance }.by(-1)
+    #subject.top_up(50)
+    expect { subject.touch_out }.to change{ subject.balance }.by(-described_class::MINIMUM_FARE)
   end
 end
 
   describe '#in_journey?' do
     it 'returns true if a card is in use' do
-      subject.top_up(50)
+      subject.top_up(described_class::MINIMUM_FARE)
       subject.touch_in
       expect(subject).to be_in_journey
     end
 
-    it 'returns false if a card has been touched' do
-      subject.top_up(50)
+    it 'returns false if a card has been touched out' do
+      subject.top_up(described_class::MINIMUM_FARE)
       subject.touch_in
       subject.touch_out
       expect(subject).not_to be_in_journey
