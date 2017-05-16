@@ -27,4 +27,9 @@ attr_reader :touched_in, :touched_out
   def touch_out
     @touched_out = true
   end
+
+  def in_journey?
+    @touched_in = true
+  end
+
 end
