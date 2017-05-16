@@ -27,8 +27,16 @@ describe Oystercard do
   end
 
   it 'raises an error when touching in a card with a balance of 0' do
-  expect {subject.touch_in }.to raise_error ("Insufficient funds")
+    expect {subject.touch_in }.to raise_error ("Insufficient funds")
   end
+
+  it 'remembers entry station after touch in' do
+    subject.top_up(described_class::MINIMUM_FARE)
+    subject.touch_in(station)
+    expect(subject.station).to eq :station
+  end
+
+
 end
 
   describe '#touch_out' do
