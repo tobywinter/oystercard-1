@@ -29,9 +29,10 @@ attr_reader :entry_station, :exit_station, :balance
   end
 
   def in_journey?
-    return false if @entry_station == nil
-    return true if @entry_station == entry_station
-    false
+    @entry_station != nil
+    #return false if @entry_station == nil
+    #true if @entry_station == entry_station
+    #false
   end
 
   private
