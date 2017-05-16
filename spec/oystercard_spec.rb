@@ -13,7 +13,7 @@ describe Oystercard do
     end
 
     it "should raise error if balance exceeds 90" do
-      if subject.balance > described_class::LIMIT
+      if subject.balance > described_class::MAXIMUM_BALANCE
       expect { subject.top_up(1) }.to raise_error ("Balance has exceeded limit of #{described_class::LIMIT}")
       end
     end
@@ -35,8 +35,10 @@ describe Oystercard do
   end
 
   it 'raises an error when touching in a card with a balance of 0' do
-  expect(subject.touch_in).to raise_error ("Insufficient funds")
+    if subject.balance == described_class::MINIMUM_BALANCE
+  expect {subject.touch_in }.to raise_error ("Insufficient funds")
   end
+end
 end
 
   describe '#touch_out' do
