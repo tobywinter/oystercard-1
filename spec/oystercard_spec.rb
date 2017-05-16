@@ -24,7 +24,6 @@ describe Oystercard do
     entry_station = double :entry_station
     subject.top_up(described_class::MINIMUM_FARE)
     subject.touch_in(entry_station)
-    expect(subject.in_journey).to eq true
   end
 
   it 'raises an error when touching in a card with a balance of 0' do
@@ -43,7 +42,6 @@ end
   describe '#touch_out' do
    it "is aware that it's been touched out" do
     subject.touch_out
-    expect(subject.in_journey).to eq false
   end
 
   it 'should reduce the balance by the minimum fare when touching out' do

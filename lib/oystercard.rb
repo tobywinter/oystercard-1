@@ -5,11 +5,10 @@ MINIMUM_BALANCE = 1
 MINIMUM_FARE = 1
 
 attr_accessor :balance
-attr_reader :in_journey, :entry_station
+attr_reader :entry_station
 
   def initialize
      @balance = 0
-     @in_journey = false
      @entry_station = nil
   end
 
@@ -20,19 +19,17 @@ attr_reader :in_journey, :entry_station
 
   def touch_in(entry_station)
     raise "Insufficient funds" if @balance < MINIMUM_BALANCE
-    @in_journey = true
     @entry_station = entry_station
   end
 
   def touch_out
-    @in_journey = false
     @entry_station = nil
     deduct(MINIMUM_FARE)
   end
 
   def in_journey?
-    return false if @in_journey == false
-    return true if @in_journey == true
+    return false if @entry_station == nil
+    return true if @entry_station == entry_station
     false
   end
 
