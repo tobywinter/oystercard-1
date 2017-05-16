@@ -21,6 +21,7 @@ attr_reader :touched_in, :touched_out
   end
 
   def touch_in
+    raise "Insufficient funds" if @balance < 1
   @touched_in = true
   end
 
