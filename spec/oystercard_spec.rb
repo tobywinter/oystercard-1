@@ -48,6 +48,11 @@ describe Oystercard do
       subject.touch_out
       expect(subject.in_journey?).to eq false
     end
+
+    it 'returns false when checking an unused card'
+      expect(subject.in_journey?).to eq false
+    end
+
   end
 
 end
