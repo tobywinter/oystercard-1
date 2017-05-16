@@ -25,8 +25,9 @@ attr_reader :in_journey, :entry_station
   end
 
   def touch_out
-    deduct(MINIMUM_FARE)
     @in_journey = false
+    deduct(MINIMUM_FARE)
+
   end
 
   def in_journey?
