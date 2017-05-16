@@ -49,6 +49,12 @@ end
   it 'should reduce the balance by the minimum fare when touching out' do
     expect { subject.touch_out }.to change{ subject.balance }.by(-described_class::MINIMUM_FARE)
   end
+
+  it 'should reset entry_station to nil' do
+    subject.touch_out
+    expect(subject.entry_station).to eq nil
+  end
+
 end
 
   describe '#in_journey?' do
