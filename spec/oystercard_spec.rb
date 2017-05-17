@@ -78,4 +78,24 @@ end
 
   end
 
+  describe '#journeys' do
+      it 'responds to journeys' do
+      expect(subject).to respond_to(:journeys)
+    end
+
+      it 'stores entry_station' do
+        subject.top_up(described_class::MINIMUM_FARE)
+        subject.touch_in(entry_station)
+        expect(subject.journeys).to eq [{entry_station: entry_station}]
+      end
+
+      it 'stores exit_station' do
+        subject.top_up(described_class::MINIMUM_FARE)
+        subject.touch_in(entry_station)
+        subject.touch_out(exit_station)
+        expect(subject.journeys).to eq [{entry_station: entry_station, exit_station: exit_station}]
+      end
+
+  end
+
 end
