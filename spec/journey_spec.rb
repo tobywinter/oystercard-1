@@ -8,12 +8,27 @@ describe Journey do
   expect(journey).to respond_to :penalty_charge
   end
 
-  describe '#start_journey' do
-    it 'should start a journey with a station'do
+  describe '#start' do
     station = Station.new("Bank", 1)
-      expect(subject.start(station)).to change{subject.entry_station}.to eq("Bank")
-      p subject.entry_station
+
+    it 'should start a journey with a station' do
+      expect{ journey.start(station) }.to change{ journey.entry_station }.to eq("Bank")
     end
 
+    it 'should start a journey with a zone' do
+      expect{ journey.start(station) }.to change{ journey.entry_zone }.to eq(1)
+    end
+  end
+
+  describe '#end' do
+    station = Station.new("Kingston", 6)
+
+    it 'should end a journey with a station' do
+      expect{ journey.end(station) }.to change{ journey.exit_station }.to eq("Kingston")
+    end
+
+    it 'should end a journey with a zone' do
+      expect{ journey.end(station) }.to change{ journey.exit_zone }.to eq(6)
+    end
   end
 end
